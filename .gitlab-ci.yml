@@ -1,0 +1,67 @@
+  
+stages:
+  - install_dependencies
+  - build
+  - test
+  - SonarQube_Scanner
+  
+before_script:
+  - cd code
+  
+install_dependencies:
+    stage: install_dependencies
+    image: node:latest	
+    script:
+    - npm install
+    only:
+        - development
+        - master
+    artifacts:
+        paths:
+          - code/node_modules/
+  
+build:
+    stage: build
+    image: node:latest
+    allow_failure: false
+    script:
+        - echo "Building deploy package"
+        - npm run build
+        - echo "Build successful"
+    only:
+        - development
+        - master
+    artifacts:
+        expire_in: 1 day
+        paths:
+        - code/build
+
+test:
+   stage: test
+   image: node:latest
+   allow_failure: false
+   script: npm test
+   only:
+        - development
+        - master
+        
+SonarQube_Scanner:
+    stage: SonarQube_Scanner
+    image: node:latest
+    allow_failure: true
+    script:
+        - npm install -g sonarqube-scanner
+        - >
+          sonar-scanner
+          -Dsonar.projectKey=${PROJECT_KEY}
+          -Dsonar.host.url=${SONAR_HOST_URL}
+          -Dsonar.login=${SONAR_TOKEN}
+          -Dsonar.typescript.lcov.reportPaths=coverage/lcov/lcov.info
+          -Dsonar.sourceEncoding=UTF-8
+          -Dsonar.sources=.
+          -Dsonar.exclusions=**/node_modules/**,**/*.spec.ts
+          -Dsonar.tests=.
+          -Dsonar.test.inclusions=**/*.spec.ts
+    only:
+        - development
+        - master    

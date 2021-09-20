@@ -1,0 +1,1 @@
+export type envValues = "development" | "staging" | "production";

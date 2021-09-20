@@ -1,0 +1,31 @@
+{
+    "compilerOptions": {
+        "rootDir": "src/",
+        "target": "ES2015", // Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019' or 'ESNEXT'.
+        "module": "commonjs", // Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'.
+        "sourceMap": true, // it creates source maps for debugging purpose in ts files
+        "experimentalDecorators": true, // Enables experimental support for ES7 decorators.
+        "emitDecoratorMetadata": true, // Enables experimental support for emitting type metadata for decorators.
+        "outDir": "dist",
+        "types": ["node", "jest"],
+        "allowSyntheticDefaultImports": true,    // Allow default imports from modules with no default export. This does not affect code emit, just typechecking.
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "noImplicitThis": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noImplicitReturns": true,
+        "skipLibCheck": true,
+        "declaration": false,
+        "noFallthroughCasesInSwitch": true,
+        "composite": false,
+        "noImplicitAny": true,
+        "moduleResolution": "node",
+        "lib": ["dom", "es2016", "esnext.asynciterable"],
+        "strict": false,
+        "esModuleInterop": true
+    },
+    "include": [
+        "./src/**/*"
+      ]
+}
